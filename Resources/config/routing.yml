@@ -5,3 +5,7 @@ oc_cms_homepage:
 oc_cms_add:
     path:     /add
     defaults: { _controller: OCCmsBundle:Default:add }
+
+oc_cms_new:
+    path:     /new
+    defaults: { _controller: OCCmsBundle:Page:index }
