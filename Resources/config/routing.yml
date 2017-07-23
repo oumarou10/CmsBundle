@@ -1,0 +1,7 @@
+oc_cms_homepage:
+    path:     /
+    defaults: { _controller: OCCmsBundle:Default:index }
+
+oc_cms_add:
+    path:     /add
+    defaults: { _controller: OCCmsBundle:Default:add }

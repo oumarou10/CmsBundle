@@ -1,0 +1,4 @@
+services:
+#    oc_cms.example:
+#        class: OC\CmsBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
