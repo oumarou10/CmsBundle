@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 
 
 class PageController extends Controller
@@ -32,7 +33,7 @@ class PageController extends Controller
 
         $form = $this->createFormBuilder()
             ->add('title',TextType::class)
-            ->add('content',TextType::class)
+            ->add('content', CKEditorType::class)
             ->add('submit',SubmitType::class)
             ->getForm();
 
@@ -47,7 +48,7 @@ class PageController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($page);
-            //$em->flush();
+            $em->flush();
 
             return $this->redirectToRoute('allPages');
         }
@@ -65,4 +66,14 @@ class PageController extends Controller
 
         return $this->render('OCCmsBundle:Cms:pages.html.twig', ['pages' => $pages ]);
     }
+
+
+    public function readAction($id = 1)
+    {
+        $repository = $this->getDoctrine()->getRepository(Page::class);
+        $page = $repository->find($id);
+
+        return $this->render('OCCmsBundle:Cms:onepage.html.twig', ['page' => $page]);
+    }
+
 }

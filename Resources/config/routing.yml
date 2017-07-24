@@ -6,6 +6,12 @@ oc_cms_pages:
     path:     /pages
     defaults: { _controller: OCCmsBundle:Page:pages }
 
+oc_cms_one_page:
+    path:     /page/{$id}
+    defaults: { _controller: OCCmsBundle:Page:read }
+    requirements:
+        id: \d+
+
 create:
     resource: "@OCCmsBundle/Controller/PageController.php"
     type:     annotation

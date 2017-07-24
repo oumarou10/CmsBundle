@@ -4,7 +4,10 @@
 
     <div class="container">
         {% for page in pages %}
-            {{ page.title }} - {{ page.content }}
+            <ul>
+               <li>{{ page.title }} - {{ page.content }} <a href="{{ path('oc_cms_one_page', {id: page.id }) }}"> View </a></li>
+            </ul>
+
         {% endfor %}
     </div>
 
