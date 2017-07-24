@@ -1,11 +1,11 @@
 oc_cms_homepage:
     path:     /
-    defaults: { _controller: OCCmsBundle:Default:index }
-
-oc_cms_add:
-    path:     /add
-    defaults: { _controller: OCCmsBundle:Default:add }
-
-oc_cms_new:
-    path:     /new
     defaults: { _controller: OCCmsBundle:Page:index }
+
+oc_cms_pages:
+    path:     /pages
+    defaults: { _controller: OCCmsBundle:Page:pages }
+
+create:
+    resource: "@OCCmsBundle/Controller/PageController.php"
+    type:     annotation

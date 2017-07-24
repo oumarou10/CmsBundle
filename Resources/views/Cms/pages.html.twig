@@ -3,7 +3,9 @@
 {% block body %}
 
     <div class="container">
-        Bienvenue sur mon premier projet Symfony
+        {% for page in pages %}
+            {{ page.title }} - {{ page.content }}
+        {% endfor %}
     </div>
 
 {% endblock %}
