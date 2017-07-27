@@ -4,10 +4,14 @@
 
     <div class="container">
         {% for page in pages %}
-            <ul>
-               <li>{{ page.title }} - {{ page.content }} <a href="{{ path('oc_cms_one_page', {id: page.id }) }}"> View </a></li>
+            <ul class="list-group">
+               <li class="list-group-item">
+                   {{ page.title }}
+                   <a href="{{ path('oc_cms_read_page', {slug: page.slug }) }}"> View </a>
+                   <a href="{{ path('oc_cms_update_page', {id: page.id }) }}"> Edit </a>
+                   <a href="{{ path('oc_cms_delete_page', {id: page.id }) }}"> Delete </a>
+               </li>
             </ul>
-
         {% endfor %}
     </div>
 

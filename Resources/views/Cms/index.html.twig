@@ -3,7 +3,15 @@
 {% block body %}
 
     <div class="container">
-        Bienvenue sur mon premier projet Symfony
+        <h1 class="display-1"> Bienvenue sur mon premier projet Symfony </h1>
     </div>
+
+    {% for page in pages %}
+
+        <ul class="list-group">
+            <li class="list-group-item"> {{ page.title }} </li>
+        </ul>
+
+    {% endfor %}
 
 {% endblock %}

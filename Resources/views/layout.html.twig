@@ -20,15 +20,47 @@
                         </div>
                         <div id="navbar" class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="/">Accueil</a></li>
-                                <li><a href="{{ path('allPages') }}">Liste des pages </a></li>
-                                <li><a href="{{ path('add') }}">Ajouter une nouvelle page</a></li>
+                                <li class="active"><a href="{{ path('homepage') }}">Accueil</a></li>
+                                <li><a href="{{ path('oc_cms_pages') }}">Liste des pages </a></li>
+                                <li><a href="{{ path('oc_cms_create_page') }}">Ajouter une nouvelle page</a></li>
                             </ul>
                         </div><!--/.nav-collapse -->
                     </div><!--/.container-fluid -->
                 </nav>
+
+                {% for flash in app.session.flashbag.get('add_success') %}
+
+                    <div class="alert alert-success">
+                        {{ flash }}
+                    </div>
+
+                {% endfor %}
+
+                {% for flash in app.session.flashbag.get('update_success') %}
+
+                    <div class="alert alert-info">
+                        {{ flash }}
+                    </div>
+
+                {% endfor %}
+
+
+                {% for flash in app.session.flashbag.get('delete_success') %}
+
+                    <div class="alert alert-danger">
+                        {{ flash }}
+                    </div>
+
+                {% endfor %}
+
             {% endblock %}
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+
+        {% block body %}
+
+        {% endblock %}
+        {% block javascripts %}
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        {% endblock %}
     </body>
 </html>

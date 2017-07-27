@@ -6,12 +6,27 @@ oc_cms_pages:
     path:     /pages
     defaults: { _controller: OCCmsBundle:Page:pages }
 
-oc_cms_one_page:
-    path:     /page/{$id}
-    defaults: { _controller: OCCmsBundle:Page:read }
+
+oc_cms_create_page:
+    path:     /page/create
+    defaults: { _controller: OCCmsBundle:Page:create }
     requirements:
         id: \d+
 
-create:
-    resource: "@OCCmsBundle/Controller/PageController.php"
-    type:     annotation
+oc_cms_update_page:
+    path:     /page/{id}/edit
+    defaults: { _controller: OCCmsBundle:Page:update }
+    requirements:
+        id: \d+
+
+oc_cms_delete_page:
+    path:     /page/{id}/delete
+    defaults: { _controller: OCCmsBundle:Page:delete }
+    requirements:
+        id: \d+
+
+oc_cms_read_page:
+    path:     /page/{slug}
+    defaults: { _controller: OCCmsBundle:Page:read }
+    requirements:
+        slug: "[a-zA-Z0-9-_/]+"

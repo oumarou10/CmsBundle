@@ -8,57 +8,55 @@
 
 namespace OC\CmsBundle\Controller;
 
+
 use OC\CmsBundle\Entity\Page;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use OC\CmsBundle\Form\PageType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 class PageController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('OCCmsBundle:Cms:index.html.twig');
+        $doctrine = $this->getDoctrine();
+
+        $repository = $doctrine->getRepository(Page::class);
+
+        $pages = $repository->findAll();
+
+        return $this->render('OCCmsBundle:Cms:index.html.twig', compact('pages'));
     }
 
-    /**
-     * @Route("/page/create", name="add")
-     */
     public function createAction(Request $request)
     {
+        $session = new Session();
+
         $page = new Page();
 
-        $form = $this->createFormBuilder()
-            ->add('title',TextType::class)
-            ->add('content', CKEditorType::class)
-            ->add('submit',SubmitType::class)
-            ->getForm();
+        $form = $this->createForm(PageType::class,$page);
+        $form->add('create',SubmitType::class);
 
         $form->handleRequest($request);
 
-        if ($form->isValid() && $form->isSubmitted())
+        if ($form->isSubmitted() && $form->isValid())
         {
-            $data = $form->getData();
-
-            $page->setTitle($data['title']);
-            $page->setContent($data['content']);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($page);
-            $em->flush();
+            //$em->flush();
 
-            return $this->redirectToRoute('allPages');
+            $session->getFlashBag()->add('add_success', 'Votre page a bien été enregistré');
+
+            return $this->redirectToRoute('oc_cms_pages');
         }
 
         return $this->render('OCCmsBundle:Cms:add.html.twig', ['form' => $form->createView()]);
     }
 
-    /**
-     * @Route("/pages", name="allPages")
-     */
+
     public function pagesAction(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(Page::class);
@@ -68,12 +66,47 @@ class PageController extends Controller
     }
 
 
-    public function readAction($id = 1)
+    public function readAction(Request $request, Page $page)
     {
-        $repository = $this->getDoctrine()->getRepository(Page::class);
-        $page = $repository->find($id);
 
         return $this->render('OCCmsBundle:Cms:onepage.html.twig', ['page' => $page]);
+    }
+
+    public function updateAction(Request $request, Page $page)
+    {
+        $session = new Session();
+
+        $form = $this->createForm(PageType::class,$page);
+        $form->add('edit',SubmitType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() & $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($page);
+            //$em->flush();
+
+            $session->getFlashBag()->add('update_success', 'Votre page a bien été modifiée');
+
+            return $this->redirectToRoute('oc_cms_pages');
+        }
+
+        return $this->render('OCCmsBundle:Cms:editpage.html.twig', ['form' => $form->createView(), 'page' => $page]);
+    }
+
+    public function deleteAction(Request $request, Page $page)
+    {
+        $session = new Session();
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($page);
+        //$em->flush();
+
+        $session->getFlashBag()->add('delete_success', 'Votre page a bien été supprimée');
+
+        return $this->redirectToRoute('oc_cms_pages');
+
     }
 
 }
