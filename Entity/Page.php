@@ -4,6 +4,7 @@ namespace OC\CmsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Page
@@ -39,12 +40,10 @@ class Page
     private $content;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="slug", type="string")
-     */
-    private $slug;
-
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(length=128, unique=true)
+    */
+    public $slug;
 
     /**
      * Get id
@@ -103,6 +102,7 @@ class Page
     {
         return $this->content;
     }
+
 
     /**
      * Set slug

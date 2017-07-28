@@ -46,7 +46,7 @@ class PageController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($page);
-            //$em->flush();
+            $em->flush();
 
             $session->getFlashBag()->add('add_success', 'Votre page a bien été enregistré');
 
@@ -85,7 +85,7 @@ class PageController extends Controller
         {
             $em = $this->getDoctrine()->getManager();
             $em->persist($page);
-            //$em->flush();
+            $em->flush();
 
             $session->getFlashBag()->add('update_success', 'Votre page a bien été modifiée');
 
@@ -101,7 +101,7 @@ class PageController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($page);
-        //$em->flush();
+        $em->flush();
 
         $session->getFlashBag()->add('delete_success', 'Votre page a bien été supprimée');
 
