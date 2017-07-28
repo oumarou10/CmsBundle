@@ -32,6 +32,7 @@ class PageController extends Controller
 
     public function createAction(Request $request)
     {
+
         $session = new Session();
 
         $page = new Page();

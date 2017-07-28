@@ -8,8 +8,10 @@
                <li class="list-group-item">
                    {{ page.title }}
                    <a href="{{ path('oc_cms_read_page', {slug: page.slug }) }}"> View </a>
+                   {% if(app.user) %}
                    <a href="{{ path('oc_cms_update_page', {id: page.id }) }}"> Edit </a>
                    <a href="{{ path('oc_cms_delete_page', {id: page.id }) }}"> Delete </a>
+                   {% endif %}
                </li>
             </ul>
         {% endfor %}

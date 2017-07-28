@@ -22,7 +22,9 @@
                             <ul class="nav navbar-nav">
                                 <li class="active"><a href="{{ path('homepage') }}">Accueil</a></li>
                                 <li><a href="{{ path('oc_cms_pages') }}">Liste des pages </a></li>
+                            {% if app.user  %}
                                 <li><a href="{{ path('oc_cms_create_page') }}">Ajouter une nouvelle page</a></li>
+                            {% endif %}
                             </ul>
 
                             {% if app.user  %}
