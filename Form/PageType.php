@@ -3,6 +3,7 @@
 namespace OC\CmsBundle\Form;
 
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,11 +18,16 @@ class PageType extends AbstractType
     {
         $builder
             ->add('title',TextType::class)
+            ->add('category',EntityType::class,array(
+                    'class'         => 'OC\CmsBundle\Entity\Category',
+                    'choice_label'  => 'name',
+                ))
             ->add('content', CKEditorType::class, array(
-                    'config' => array(
-                    'uiColor' => '#ffffff'
+                    'config'    => array(
+                        'uiColor'   => '#ffffff'
             )));
     }
+
     
     /**
      * {@inheritdoc}

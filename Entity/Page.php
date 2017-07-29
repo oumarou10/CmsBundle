@@ -46,6 +46,12 @@ class Page
     public $slug;
 
     /**
+    * @ORM\ManyToOne(targetEntity="OC\CmsBundle\Entity\Category")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $category;
+
+    /**
      * Get id
      *
      * @return int
@@ -126,5 +132,29 @@ class Page
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \OC\CmsBundle\Entity\Category $category
+     *
+     * @return Page
+     */
+    public function setCategory(\OC\CmsBundle\Entity\Category $category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \OC\CmsBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

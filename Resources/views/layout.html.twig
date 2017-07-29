@@ -24,6 +24,7 @@
                                 <li><a href="{{ path('oc_cms_pages') }}">Liste des pages </a></li>
                             {% if app.user  %}
                                 <li><a href="{{ path('oc_cms_create_page') }}">Ajouter une nouvelle page</a></li>
+                                <li><a href="{{ path('oc_cms_create_category') }}">Ajouter une nouvelle categorie</a></li>
                             {% endif %}
                             </ul>
 
@@ -39,6 +40,14 @@
                 </nav>
 
                 {% for flash in app.session.flashbag.get('add_success') %}
+
+                    <div class="alert alert-success">
+                        {{ flash }}
+                    </div>
+
+                {% endfor %}
+
+                {% for flash in app.session.flashbag.get('add_category_success') %}
 
                     <div class="alert alert-success">
                         {{ flash }}
